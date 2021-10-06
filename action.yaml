@@ -1,0 +1,36 @@
+name: 'tkn on EKS'
+description: 'tkn on EKS'
+branding:
+  icon: 'compass'
+  color: 'blue'
+inputs:
+  task:
+    description: 'The task you want to run'
+    required: true
+  namespace:
+    description: 'The namespace the task is in'
+    required: true
+  args:
+    description: 'The arguments added to tkn command after task name such as `--param key=value`'
+    required: false
+  kubeconfig:
+    description: 'The kubeconfig file to use'
+    required: false
+  aws_access_key_id:
+    description: >-
+      AWS Access Key ID. This input is required if running in the GitHub hosted environment.
+      It is optional if running in a self-hosted environment that already has AWS credentials,
+      for example on an EC2 instance.
+    required: false
+  aws_secret_access_key:
+    description: >-
+      AWS Secret Access Key. This input is required if running in the GitHub hosted environment.
+      It is optional if running in a self-hosted environment that already has AWS credentials,
+      for example on an EC2 instance.
+    required: false
+  aws_region:
+    description: 'AWS Region, e.g. us-east-2'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
