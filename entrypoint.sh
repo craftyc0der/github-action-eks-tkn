@@ -25,8 +25,12 @@ if [ -z "$INPUT_AWS_REGION" ]; then
   AWS_REGION="us-east-2"
 fi
 
-if [[ ! $INPUT_ARGS =~ ^[-=[:space:]a-zA-Z0-9]*$ ]]; then
-  echo "No special characters allowed in task arguments"
+if [[ ! $INPUT_NAMESPACE =~ ^[-_a-zA-Z0-9]*$ ]]; then
+  echo "No special characters allowed in namespace"
+fi
+
+if [[ ! $INPUT_TASK =~ ^[-_a-zA-Z0-9]*$ ]]; then
+  echo "No special characters allowed in task name"
 fi
 
 if [[ ! $INPUT_ARGS =~ ^[-=[:space:]a-zA-Z0-9]*$ ]]; then
