@@ -34,11 +34,10 @@ if [[ $INPUT_ARGS =~ ([&&|\|\||&|\||\n]) ]]; then
 fi
 
 if [ -z "$INPUT_POD_TEMPLATE" ]; then
-    touch ./pod_template.yaml
     PTARG=""
 else
-    echo "${INPUT_POD_TEMPLATE}" > ./pod_template.yaml
-    PTARG="--pod-template ./pod-template.yaml"
+    echo "${INPUT_POD_TEMPLATE}" > /workdir/pod_template.yaml
+    PTARG="--pod-template /workdir/pod_template.yaml"
 fi
 
 # Create a dedicated profile for this action to avoid conflicts
