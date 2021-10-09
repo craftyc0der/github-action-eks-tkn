@@ -13,6 +13,9 @@ inputs:
   args:
     description: 'The arguments added to tkn command after task name such as `--param key=value`'
     required: false
+  pod_template:
+    description: 'The PodTemplate to apply to the TaskRun if any.'
+    required: false
   kubeconfig:
     description: 'The kubeconfig file to use'
     required: false

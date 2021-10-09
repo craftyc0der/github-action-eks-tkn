@@ -33,6 +33,14 @@ if [[ $INPUT_ARGS =~ ([&&|\|\||&|\||\n]) ]]; then
   echo "No booleans or pipes allowed in args"
 fi
 
+if [ -z "$INPUT_POD_TEMPLATE" ]; then
+    touch ./pod_template.yaml
+    PTARG=""
+else
+    echo "${INPUT_POD_TEMPLATE}" > ./pod_template.yaml
+    PTARG="--pod-template ./pod-template.yaml"
+fi
+
 # Create a dedicated profile for this action to avoid conflicts
 # with past/future actions.
 aws configure --profile github_user <<-EOF > /dev/null 2>&1
@@ -49,7 +57,7 @@ echo "${INPUT_KUBECONFIG}" > ~/.kube/config
 fi
 
 echo -e "\033[36mExecuting tkn\033[0m"
-tkn task start --showlog -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
+tkn task start --showlog ${PTARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
 
 echo -e "\033[36mCleaning up: \033[0m"
 rm ./run.sh -Rf
