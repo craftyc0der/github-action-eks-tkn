@@ -25,12 +25,12 @@ if [ -z "$INPUT_AWS_REGION" ]; then
   AWS_REGION="us-east-2"
 fi
 
-if [[ $INPUT_TASK =~ ([&&|\|\||&|\||\n]) ]]; then
-  echo "No booleans or pipes allowed in task"
+if [[ ! $INPUT_ARGS =~ ^[-=[:space:]a-zA-Z0-9]*$ ]]; then
+  echo "No special characters allowed in task arguments"
 fi
 
-if [[ $INPUT_ARGS =~ ([&&|\|\||&|\||\n]) ]]; then
-  echo "No booleans or pipes allowed in args"
+if [[ ! $INPUT_ARGS =~ ^[-=[:space:]a-zA-Z0-9]*$ ]]; then
+  echo "No special characters allowed in task arguments"
 fi
 
 if [ -z "$INPUT_POD_TEMPLATE" ]; then

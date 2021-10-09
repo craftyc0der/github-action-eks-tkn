@@ -14,7 +14,6 @@ RUN yum install -y wget tar gzip && \
     /usr/local/bin/aws --version && \
     /usr/local/bin/tkn version
 
-RUN mkdir /workdir
 COPY entrypoint.sh /workdir/entrypoint.sh
 RUN chmod +x /workdir/entrypoint.sh
 
