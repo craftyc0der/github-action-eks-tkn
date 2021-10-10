@@ -33,7 +33,7 @@ if [[ ! $INPUT_TASK =~ ^[-_a-zA-Z0-9]*$ ]]; then
   echo "No special characters allowed in task name"
 fi
 
-if [[ ! $INPUT_ARGS =~ ^[-=[:space:]a-zA-Z0-9]*$ ]]; then
+if [[ ! $INPUT_ARGS =~ ^[-=[:space:]\:/a-zA-Z0-9]*$ ]]; then
   echo "No special characters allowed in task arguments"
 fi
 
