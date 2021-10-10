@@ -10,6 +10,9 @@ inputs:
   namespace:
     description: 'The namespace the task is in'
     required: true
+  serviceaccount:
+    description: 'The serviceaccount to run the task with'
+    required: false
   args:
     description: 'The arguments added to tkn command after task name such as `--param key=value`'
     required: false

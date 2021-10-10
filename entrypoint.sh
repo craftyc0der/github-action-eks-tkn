@@ -27,14 +27,27 @@ fi
 
 if [[ ! $INPUT_NAMESPACE =~ ^[-_a-zA-Z0-9]*$ ]]; then
   echo "No special characters allowed in namespace"
+  exit 1
+fi
+
+if [ -z "$INPUT_SERVICEACCOUNT" ]; then
+    SAARG=""
+else
+    if [[ ! $INPUT_SERVICEACCOUNT =~ ^[-_a-zA-Z0-9]*$ ]]; then
+      echo "No special characters allowed in serviceaccount"
+      exit 1
+    fi
+    SAARG="--serviceaccount ${$INPUT_SERVICEACCOUNT}"
 fi
 
 if [[ ! $INPUT_TASK =~ ^[-_a-zA-Z0-9]*$ ]]; then
   echo "No special characters allowed in task name"
+  exit 1
 fi
 
 if [[ ! $INPUT_ARGS =~ ^[-=[:space:]\:/a-zA-Z0-9]*$ ]]; then
   echo "No special characters allowed in task arguments"
+  exit 1
 fi
 
 if [ -z "$INPUT_POD_TEMPLATE" ]; then
@@ -60,7 +73,7 @@ echo "${INPUT_KUBECONFIG}" > ~/.kube/config
 fi
 
 echo -e "\033[36mExecuting tkn\033[0m"
-tkn task start --showlog ${PTARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
+tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
 
 echo -e "\033[36mCleaning up: \033[0m"
 rm ./run.sh -Rf
