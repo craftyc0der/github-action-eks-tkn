@@ -37,7 +37,7 @@ else
       echo "No special characters allowed in serviceaccount"
       exit 1
     fi
-    SAARG="--serviceaccount ${$INPUT_SERVICEACCOUNT}"
+    SAARG="--serviceaccount ${INPUT_SERVICEACCOUNT}"
 fi
 
 if [[ ! $INPUT_TASK =~ ^[-_a-zA-Z0-9]*$ ]]; then
