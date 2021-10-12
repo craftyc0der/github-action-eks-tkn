@@ -45,7 +45,7 @@ if [[ ! $INPUT_TASK =~ ^[-_a-zA-Z0-9]*$ ]]; then
   exit 1
 fi
 
-if [[ ! $INPUT_ARGS =~ ^[-=[:space:]\:/a-zA-Z0-9]*$ ]]; then
+if [[ ! $INPUT_ARGS =~ ^[-\.=[:space:]\:/a-zA-Z0-9]*$ ]]; then
   echo "No special characters allowed in task arguments"
   exit 1
 fi
