@@ -35,10 +35,11 @@ If you require the addition of a tolerations or affinity, these are included in 
       with:
         task: 'unity-build'
         namespace: 'astra-build'
-        args: '--param gitSHA=asdf123 --param gitRepo=rubicon'
-        kubeconfig: '${{ secrets.KUBECONFIG_EKS_DEMO_CLUSTER }}'
-        aws_access_key_id: '${{ secrets.AWS_ACCESS_KEY_ID_ZEUS_GITHUB_USER }}'
-        aws_secret_access_key: '${{ secrets.AWS_SECRET_ACCESS_KEY_ZEUS_GITHUB_USER }}'
+        serviceaccount: 'astra-build'
+        args: '--param gitOrg=gosynthschool --param gitRepo=rubicon --param gitSha=3c4356f --param s3UploadPath=s3://rubicon-prod/jom --param unityLicenseSecret=unity-license'
+        kubeconfig: '${{ secrets.KUBECONFIG_EKS_DEMO_CLUSTER_ASTRA }}'
+        aws_access_key_id: '${{ secrets.AWS_ACCESS_KEY_ID_ASTRA_GITHUB_USER }}'
+        aws_secret_access_key: '${{ secrets.AWS_SECRET_ACCESS_KEY_ASTRA_GITHUB_USER }}'
         aws_region: 'us-east-2'
         pod_template: |
           tolerations:
