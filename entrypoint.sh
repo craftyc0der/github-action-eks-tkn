@@ -40,9 +40,25 @@ else
     SAARG="--serviceaccount ${INPUT_SERVICEACCOUNT}"
 fi
 
-if [[ ! $INPUT_TASK =~ ^[-_a-zA-Z0-9]*$ ]]; then
-  echo "No special characters allowed in task name"
-  exit 1
+if [ -z "$INPUT_TASK" ]
+then
+  if [[ ! $INPUT_TASK =~ ^[-_a-zA-Z0-9]*$ ]]; then
+    echo "No special characters allowed in task name"
+    exit 1
+  fi
+  TASKTYPE="task"
+else
+  if [[ ! $INPUT_CLUSTER_TASK =~ ^[-_a-zA-Z0-9]*$ ]]; then
+    echo "No special characters allowed in clustertask name"
+    exit 1
+  fi
+  if [ -z "$INPUT_CLUSTER_TASK" ]
+  then
+    TASKTYPE="clustertask"
+  else
+    echo "No task defined"
+    exit 1
+  fi
 fi
 
 if [[ ! $INPUT_ARGS =~ ^[-\.=[:space:]\:/a-zA-Z0-9]*$ ]]; then
@@ -73,7 +89,7 @@ echo "${INPUT_KUBECONFIG}" > ~/.kube/config
 fi
 
 echo -e "\033[36mExecuting tkn\033[0m"
-tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
+tkn ${TASKTYPE} start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
 
 echo -e "\033[36mCleaning up: \033[0m"
 rm ./run.sh -Rf

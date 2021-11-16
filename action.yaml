@@ -6,7 +6,10 @@ branding:
 inputs:
   task:
     description: 'The task you want to run'
-    required: true
+    required: false
+  cluster_task:
+    description: 'The cluster task you want to run'
+    required: false
   namespace:
     description: 'The namespace the task is in'
     required: true

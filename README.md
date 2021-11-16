@@ -9,6 +9,8 @@ If you require the addition of a tolerations or affinity, these are included in 
 
 * task
   * The Tekton task name
+* cluster_task
+  * The Tekton clustertask name (mutually exclusive with `task`)
 * namespace
   * The K8S namespace the Task resides in
 * args
