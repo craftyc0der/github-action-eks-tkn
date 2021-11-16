@@ -40,7 +40,7 @@ else
     SAARG="--serviceaccount ${INPUT_SERVICEACCOUNT}"
 fi
 
-if [ -z "$INPUT_TASK" ]
+if [ ! -z "$INPUT_TASK" ]
 then
   if [[ ! $INPUT_TASK =~ ^[-_a-zA-Z0-9]*$ ]]; then
     echo "No special characters allowed in task name"
@@ -52,9 +52,10 @@ else
     echo "No special characters allowed in clustertask name"
     exit 1
   fi
-  if [ -z "$INPUT_CLUSTER_TASK" ]
+  if [ ! -z "$INPUT_CLUSTER_TASK" ]
   then
     TASKTYPE="clustertask"
+    INPUT_TASK=$INPUT_CLUSTER_TASK
   else
     echo "No task defined"
     exit 1
