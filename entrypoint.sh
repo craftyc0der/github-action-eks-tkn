@@ -79,11 +79,6 @@ if ! tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TA
     exit 1
 fi
 
-# if <condition> ; then
-#   echo "Game over!"
-#   exit 1
-# fi
-
 echo -e "\033[36mCleaning up: \033[0m"
 rm ./run.sh -Rf
 echo -e "\033[36m  - exec ✅ \033[0m"
