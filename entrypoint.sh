@@ -86,7 +86,7 @@ tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $
 # echo "$? is ?"
 # echo "==========================="
 # ## take some decision ## 
-if [ "$exitCode" = "1" ]; then
+if [ "$?" = "1" ]; then
   echo "Strings are equal."
   echo $?
   exit 1
@@ -95,6 +95,7 @@ else
   echo $?
   exit 127
 fi 
+
 # if [  $status -eq 0 ] 
 # then 
 #   echo "Successfully created file" 
