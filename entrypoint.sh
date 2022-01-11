@@ -80,6 +80,7 @@ status=$?
 tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
 
 status=$?
+echo "$status is status"
 ## take some decision ## 
 [ $status -eq 0 ] && echo "tekton failed command was successful" || echo "tekton failed" &&  exit 1
 
