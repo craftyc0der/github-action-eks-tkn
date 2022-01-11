@@ -80,10 +80,20 @@ status=$?
 tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
 
 status=$?
+echo "==========================="
 echo "$status is status"
+echo "==========================="
+echo "$? is ?"
+echo "==========================="
 ## take some decision ## 
-[ $status -eq 0 ] && echo "tekton failed command was successful" || echo "tekton failed" &&  exit 1
 
+if [  $status -eq 0 ] 
+then 
+  echo "Successfully created file" 
+else 
+  echo "failure" 
+  exit 1
+fi
 
 echo -e "\033[36mCleaning up: \033[0m"
 rm ./run.sh -Rf
