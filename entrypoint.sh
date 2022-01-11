@@ -77,7 +77,14 @@ echo -e "\033[36mExecuting tkn\033[0m"
 
 status=$?
 
-tkn task start # --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
+
+OUTPUT=$(tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS)
+$OUTPUT | grep -A 5 '[s3-upload] 1' 
+
+
+echo "==========================="
+printenv
+echo "==========================="
 
 # status=$?
 # echo "==========================="
