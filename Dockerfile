@@ -1,7 +1,7 @@
 FROM amazon/aws-cli
 LABEL maintainer "Joshua Oster-Morris <josh@craftycoder.com>"
 
-ARG TKN_VERSION=0.21.0
+ARG TKN_VERSION=0.31.0
 
 RUN yum install -y wget tar gzip && \
     yum clean all && \
