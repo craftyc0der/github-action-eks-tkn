@@ -74,10 +74,15 @@ fi
 
 echo -e "\033[36mExecuting tkn\033[0m"
 
-if ! tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS; then
-    echo "some_command returned an error"
-    exit 1
-fi
+
+status=$?
+
+tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
+
+status=$?
+## take some decision ## 
+[ $status -eq 0 ] && echo "tekton failed command was successful" || echo "tekton failed" &&  exit 1
+
 
 echo -e "\033[36mCleaning up: \033[0m"
 rm ./run.sh -Rf
