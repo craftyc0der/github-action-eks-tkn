@@ -94,7 +94,7 @@ else
   echo "Strings are not equal."
   echo $?
   exit 127
-
+fi 
 # if [  $status -eq 0 ] 
 # then 
 #   echo "Successfully created file" 
