@@ -79,21 +79,29 @@ status=$?
 
 tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
 
-status=$?
-echo "==========================="
-echo "$status is status"
-echo "==========================="
-echo "$? is ?"
-echo "==========================="
-## take some decision ## 
-
-if [  $status -eq 0 ] 
-then 
-  echo "Successfully created file" 
-else 
-  echo "failure" 
+# status=$?
+# echo "==========================="
+# echo "$status is status"
+# echo "==========================="
+# echo "$? is ?"
+# echo "==========================="
+# ## take some decision ## 
+if [ "$exitCode" = "1" ]; then
+  echo "Strings are equal."
+  echo $?
   exit 1
-fi
+else
+  echo "Strings are not equal."
+  echo $?
+  exit 127
+
+# if [  $status -eq 0 ] 
+# then 
+#   echo "Successfully created file" 
+# else 
+#   echo "failure" 
+#   exit 1
+# fi
 
 echo -e "\033[36mCleaning up: \033[0m"
 rm ./run.sh -Rf
