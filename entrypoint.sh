@@ -89,13 +89,16 @@ task_status=kubectl get pods -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT
 task_reason=kubectl get pods -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE}  | jq ".status | .conditions | .[] | .reason"
 
 echo "==========================="
-echo "$task_status is status"
+echo "${task_status} is status"
 echo "==========================="
-echo "$task_reason is reason"
+echo "${task_reason} is reason"
 echo "==========================="
 
-if [ "$task_status" != "True" ] || [ "$task_reason" != "Succeeded"]; then
+if [ "${task_status}" != "True" ] || [ "${task_reason}" != "Succeeded"]; then
   echo "Tekton Build Failed"
+  exit 1
+else
+  echo "Build was Successful"
   exit 1
 fi 
 
