@@ -80,9 +80,9 @@ status=$?
 tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
 
 
-echo "==========================="
-printenv
-echo "==========================="
+# echo "==========================="
+# printenv
+# echo "==========================="
 
 # status=$?
 # echo "==========================="
