@@ -91,6 +91,7 @@ tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $
 # echo "$? is ?"
 # echo "==========================="
 # ## take some decision ## 
+echo $?
 if [ "$?" = "1" ]; then
   echo "Strings are equal."
   echo $?
