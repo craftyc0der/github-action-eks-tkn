@@ -80,6 +80,7 @@ REPO="${GITHUB_REPOSITORY##*/}"
 
 tkn task start --showlog --labels "REPO=${REPO}" --labels "GITHUB_SHA=${GITHUB_SHA}" ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS 
 
+sleep 10 &
 
 echo "==========================="
 printenv
@@ -98,9 +99,6 @@ echo "==========================="
 
 if [ "${task_status}" != "True" ] || [ "${task_reason}" != "Succeeded"]; then
   echo "Tekton Build Failed"
-  exit 1
-else
-  echo "Build was Successful"
   exit 1
 fi 
 
