@@ -74,10 +74,29 @@ fi
 
 echo -e "\033[36mExecuting tkn\033[0m"
 
-if ! tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS; then
-    echo "some_command returned an error"
-    exit 1
-fi
+
+status=$?
+
+
+tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
+
+if [ "$?" = "1" ]; then
+  echo "Strings are equal."
+  echo $?
+  exit 1
+else
+  echo "Strings are not equal."
+  echo $?
+  exit 127
+fi 
+
+# if [  $status -eq 0 ] 
+# then 
+#   echo "Successfully created file" 
+# else 
+#   echo "failure" 
+#   exit 1
+# fi
 
 echo -e "\033[36mCleaning up: \033[0m"
 rm ./run.sh -Rf
