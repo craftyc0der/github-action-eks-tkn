@@ -76,16 +76,16 @@ echo -e "\033[36mExecuting tkn\033[0m"
 
 
 status=$?
-
-tkn task start --showlog --labels GITHUB_SHA=${GITHUB_REPOSITORY}/${GITHUB_SHA} ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS 
+REPO="${GITHUB_REPOSITORY##/*/}"
+tkn task start --showlog --labels "REPO=${REPO}" "GITHUB_SHA=${GITHUB_SHA}" ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS 
 
 
 echo "==========================="
 printenv
 echo "==========================="
 
-task_status=kubectl get pods -l GITHUB_SHA=${GITHUB_REPOSITORY}/${GITHUB_SHA} -n ${INPUT_NAMESPACE}  | jq ".status | .conditions | .[] | .status"
-task_reason=kubectl get pods -l GITHUB_SHA=${GITHUB_REPOSITORY}/${GITHUB_SHA} -n ${INPUT_NAMESPACE}  | jq ".status | .conditions | .[] | .reason"
+task_status=kubectl get pods -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE}  | jq ".status | .conditions | .[] | .status"
+task_reason=kubectl get pods -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE}  | jq ".status | .conditions | .[] | .reason"
 
 echo "==========================="
 echo "$task_status is status"
