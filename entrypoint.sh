@@ -87,8 +87,8 @@ echo "==========================="
 
 kubectl get tr -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE}
 echo "+++++++++++++++++++++++++++++"
-task_status=${kubectl get pods -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE} -o json | jq ".items[-1:] | .[] | .status | .conditions | .[] | .status"
-task_reason=${kubectl get pods -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE}  -o json | jq ".items[-1:] | .[] | .status | .conditions | .[] | .reason"}
+task_status=${kubectl get tr -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE} -o json | jq ".items[-1:] | .[] | .status | .conditions | .[] | .status"
+task_reason=${kubectl get tr -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE}  -o json | jq ".items[-1:] | .[] | .status | .conditions | .[] | .reason"}
 
 echo "==========================="
 echo "${task_status} is status"
