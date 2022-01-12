@@ -87,7 +87,7 @@ echo "==========================="
 
 kubectl get tr -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE} --sort-by=.metadata.creationTimestamp
 echo "+++++++++++++++++++++++++++++"
-task_status=${kubectl get tr -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE} --sort-by=.metadata.creationTimestamp -o json | jq ".items[-1:]"} # | .[] | .status | .conditions | .[] | .status"}
+task_status=$(kubectl get tr -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE} --sort-by=.metadata.creationTimestamp -o json | jq ".items[-1:]") # | .[] | .status | .conditions | .[] | .status"}
 # task_reason=${kubectl get tr -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE} --sort-by=.metadata.creationTimestamp -o json | jq ".items[-1:] | .[] | .status | .conditions | .[] | .reason"}
 
 echo "==========================="
