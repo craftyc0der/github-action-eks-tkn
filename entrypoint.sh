@@ -77,7 +77,7 @@ echo -e "\033[36mExecuting tkn\033[0m"
 
 status=$?
 REPO="${GITHUB_REPOSITORY##/*/}"
-tkn task start --showlog --labels "REPO=${REPO}" "GITHUB_SHA=${GITHUB_SHA}" ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS 
+tkn task start --showlog --labels "REPO=${REPO},GITHUB_SHA=${GITHUB_SHA}" ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS 
 
 
 echo "==========================="
