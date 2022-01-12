@@ -77,38 +77,26 @@ echo -e "\033[36mExecuting tkn\033[0m"
 
 status=$?
 
-tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
+tkn task start --showlog --labels GITHUB_SHA=${GITHUB_REPOSITORY}/${GITHUB_SHA} ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS 
 
 
-# echo "==========================="
-# printenv
-# echo "==========================="
+echo "==========================="
+printenv
+echo "==========================="
 
-# status=$?
-# echo "==========================="
-# echo "$status is status"
-# echo "==========================="
-# echo "$? is ?"
-# echo "==========================="
-# ## take some decision ## 
-echo $?
-if [ "$?" = "1" ]; then
-  echo "Strings are equal."
-  echo $?
+task_status=kubectl get pods -l GITHUB_SHA=${GITHUB_REPOSITORY}/${GITHUB_SHA} -n ${INPUT_NAMESPACE}  | jq ".status | .conditions | .[] | .status"
+task_reason=kubectl get pods -l GITHUB_SHA=${GITHUB_REPOSITORY}/${GITHUB_SHA} -n ${INPUT_NAMESPACE}  | jq ".status | .conditions | .[] | .reason"
+
+echo "==========================="
+echo "$task_status is status"
+echo "==========================="
+echo "$task_reason is reason"
+echo "==========================="
+
+if [ "$task_status" != "True" ] || [ "$task_reason" != "Succeeded"]; then
+  echo "Tekton Build Failed"
   exit 1
-else
-  echo "Strings are not equal."
-  echo $?
-  exit 127
 fi 
-
-# if [  $status -eq 0 ] 
-# then 
-#   echo "Successfully created file" 
-# else 
-#   echo "failure" 
-#   exit 1
-# fi
 
 echo -e "\033[36mCleaning up: \033[0m"
 rm ./run.sh -Rf
