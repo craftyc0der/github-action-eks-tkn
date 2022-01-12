@@ -85,6 +85,8 @@ echo "==========================="
 printenv
 echo "==========================="
 
+kubectl get pods -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE}
+echo "+++++++++++++++++++++++++++++"
 task_status=${kubectl get pods -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE}  | jq ".status | .conditions | .[] | .status"}
 task_reason=${kubectl get pods -l REPO=${REPO},GITHUB_SHA=${GITHUB_SHA} -n ${INPUT_NAMESPACE}  | jq ".status | .conditions | .[] | .reason"}
 
