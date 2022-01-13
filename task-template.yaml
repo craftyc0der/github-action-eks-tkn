@@ -1,0 +1,30 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: source-lister
+spec:
+  params:
+    - name: contextDir
+      description: "The context directory within the repository for sources"
+      default: quarkus
+  resources:
+    inputs:
+      - name: source
+        type: git
+  steps:
+    - name: ls-build-sources
+      image: busybox
+      command: ["ls", "-ltr", "/workspace/source/$(inputs.params.contextDir)"]
+# apiVersion: tekton.dev/v1beta1
+# kind: Task
+# metadata:
+#   name: unity-build
+#   namespace: astra-build
+#   annotations:
+#     "cluster-autoscaler.kubernetes.io/safe-to-evict": "false"
+# spec:
+  # metadata:
+  #   annotations:
+  #     "cluster-autoscaler.kubernetes.io/safe-to-evict": "false"
+

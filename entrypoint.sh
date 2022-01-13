@@ -78,18 +78,19 @@ echo -e "\033[36mExecuting tkn\033[0m"
 status=$?
 REPO="${GITHUB_REPOSITORY##*/}"
 
-TASKRUN_NAME=$(tkn task start --labels "REPO=${REPO}" --labels "GITHUB_SHA=${GITHUB_SHA}" ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS --output json | jq -r ".metadata | .name") 
+TASKRUN_NAME=$(tkn task start ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS --output json | jq -r ".metadata | .name") 
 tkn taskrun logs -f ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}
 
 
 sleep 10 &
-
+echo "==========================="
+echo ${TASKRUN_NAME}
 echo "==========================="
 printenv
 echo "==========================="
 
-task_status=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE} --sort-by=.metadata.creationTimestamp -o json | jq ".items[-1:] | .[] | .status | .conditions | .[] | .status")
-task_reason=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE} --sort-by=.metadata.creationTimestamp -o json | jq ".items[-1:] | .[] | .status | .conditions | .[] | .reason")
+task_status=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq ".items[-1:] | .[] | .status | .conditions | .[] | .status")
+task_reason=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq ".items[-1:] | .[] | .status | .conditions | .[] | .reason")
 
 echo "==========================="
 echo "${task_status} is status"
