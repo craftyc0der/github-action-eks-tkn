@@ -82,7 +82,7 @@ tkn_output=$(tkn task start --labels "REPO=${REPO}" --labels "GITHUB_SHA=${GITHU
 echo "==========================="
 echo $tkn_output
 echo "==========================="
-tkn taskrun logs $tkn_output -n ${INPUT_NAMESPACE}
+tkn taskrun logs ${tkn_output} -n ${INPUT_NAMESPACE}
 echo "==========================="
 
 
