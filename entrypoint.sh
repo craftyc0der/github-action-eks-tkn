@@ -89,8 +89,8 @@ echo "==========================="
 printenv
 echo "==========================="
 
-task_status=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq ".items[-1:] | .[] | .status | .conditions | .[] | .status")
-task_reason=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq ".items[-1:] | .[] | .status | .conditions | .[] | .reason")
+task_status=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq ".status | .conditions | .[] | .status")
+task_reason=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq ".status | .conditions | .[] | .reason")
 
 echo "==========================="
 echo "${task_status} is status"
