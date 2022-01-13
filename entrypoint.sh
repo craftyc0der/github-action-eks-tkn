@@ -78,11 +78,12 @@ echo -e "\033[36mExecuting tkn\033[0m"
 status=$?
 REPO="${GITHUB_REPOSITORY##*/}"
 
-tkn_output=$(tkn task start --labels "REPO=${REPO}" --labels "GITHUB_SHA=${GITHUB_SHA}" ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS --output json | jq ".metadata") 
+tkn_output=$(tkn task start --labels "REPO=${REPO}" --labels "GITHUB_SHA=${GITHUB_SHA}" ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS --output json | jq ".metadata | .name") 
 echo "==========================="
 echo $tkn_output
 echo "==========================="
-
+tkn task logs -n ${INPUT_NAMESPACE} $tkn_output
+echo "==========================="
 
 
 sleep 10 &
