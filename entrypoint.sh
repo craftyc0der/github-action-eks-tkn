@@ -98,7 +98,7 @@ echo "==========================="
 echo "${task_reason} is reason"
 echo "==========================="
 
-if [ "${task_status}" != "True" ] || [ "${task_reason}" != "Succeeded"]; then
+if [ ${task_status} != "True" ] || [ ${task_reason} != "Succeeded"]; then
   echo "Tekton Build Failed"
   exit 1
 fi 
