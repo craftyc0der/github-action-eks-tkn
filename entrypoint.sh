@@ -73,7 +73,18 @@ echo "${INPUT_KUBECONFIG}" > ~/.kube/config
 fi
 
 echo -e "\033[36mExecuting tkn\033[0m"
-tkn task start --showlog ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS
+TASKRUN_NAME=$(tkn task start ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS --output json | jq -r ".metadata | .name") 
+tkn taskrun logs -f ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}
+
+# confrirm that the run succeeded: https://tekton.dev/docs/pipelines/taskruns/
+TASK_STATUS=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq -r ".status | .conditions | .[] | .status")
+TASK_REASON=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq -r ".status | .conditions | .[] | .reason")
+
+
+if [[ $TASK_STATUS != "True" ]] || [[ $TASK_REASON != "Succeeded" ]]; then
+  echo "Tekton Build Failed"
+  exit 1
+fi 
 
 echo -e "\033[36mCleaning up: \033[0m"
 rm ./run.sh -Rf
