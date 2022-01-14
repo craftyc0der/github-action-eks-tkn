@@ -3,7 +3,7 @@ LABEL maintainer "Joshua Oster-Morris <josh@craftycoder.com>"
 
 ARG TKN_VERSION=0.21.0
 
-RUN yum install -y wget tar gzip && \
+RUN yum install -y wget tar gzip jq && \
     yum clean all && \
     rm -rf /var/cache/yum && \
     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
