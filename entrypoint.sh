@@ -75,32 +75,13 @@ fi
 echo -e "\033[36mExecuting tkn\033[0m"
 
 
-status=$?
-REPO="${GITHUB_REPOSITORY##*/}"
-
 TASKRUN_NAME=$(tkn task start ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS --output json | jq -r ".metadata | .name") 
 tkn taskrun logs -f ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}
 
-
-sleep 10 &
-echo "==========================="
-echo ${TASKRUN_NAME}
-echo "==========================="
-printenv
-echo "==========================="
-
+# confrirm that the run succeeded: https://tekton.dev/docs/pipelines/taskruns/
 task_status=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq -r ".status | .conditions | .[] | .status")
 task_reason=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq -r ".status | .conditions | .[] | .reason")
 
-# task_status="True"
-# task_reason="Succeeded"
-
-
-echo "==========================="
-echo ""${task_status}" is status"
-echo "==========================="
-echo "${task_reason} is reason"
-echo "==========================="
 
 if [[ $task_status != "True" ]] || [[ $task_reason != "Succeeded" ]]; then
   echo "Tekton Build Failed"
