@@ -89,11 +89,15 @@ echo "==========================="
 printenv
 echo "==========================="
 
-task_status=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq ".status | .conditions | .[] | .status")
-task_reason=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq ".status | .conditions | .[] | .reason")
+task_status=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq -r ".status | .conditions | .[] | .status")
+task_reason=$(kubectl get tr ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}  -o json | jq -r ".status | .conditions | .[] | .reason")
+
+# task_status="True"
+# task_reason="Succeeded"
+
 
 echo "==========================="
-echo "${task_status} is status"
+echo ""${task_status}" is status"
 echo "==========================="
 echo "${task_reason} is reason"
 echo "==========================="
