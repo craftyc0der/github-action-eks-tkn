@@ -90,7 +90,7 @@ echo "${INPUT_KUBECONFIG}" > ~/.kube/config
 fi
 
 echo -e "\033[36mExecuting tkn\033[0m"
-TASKRUN_NAME=$(tkn task start ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS --output json | jq -r ".metadata | .name")
+TASKRUN_NAME=$(tkn ${TASKTYPE} start ${PTARG} ${SAARG} -n ${INPUT_NAMESPACE} ${INPUT_TASK} $INPUT_ARGS --output json | jq -r ".metadata | .name")
 tkn taskrun logs -f ${TASKRUN_NAME} -n ${INPUT_NAMESPACE}
 
 # confrirm that the run succeeded: https://tekton.dev/docs/pipelines/taskruns/
